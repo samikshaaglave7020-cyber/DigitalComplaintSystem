@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Search Complaint</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav>
+
+    <h2>Complaint Management System</h2>
+
+    <div>
+        <a href="index.html">Home</a>
+        <a href="submit.html">Submit Complaint</a>
+        <a href="complaints.html">View Complaints</a>
+        <a href="search.html">Search Complaint</a>
+    </div>
+
+</nav>
+
+
+<section class="form-container">
+
+    <h1>Search Complaint</h1>
+
+    <form id="searchForm">
+
+        <label for="complaintId">
+            Enter Complaint ID
+        </label>
+
+        <input type="text"
+               id="complaintId"
+               placeholder="Example: CMP001"
+               required>
+
+        <button type="submit" class="btn">
+            Search
+        </button>
+
+    </form>
+
+
+    <div id="result"></div>
+
+</section>
+
+
+<script>
+
+document.getElementById("searchForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    let searchId =
+        document.getElementById("complaintId").value
+        .trim()
+        .toUpperCase();
+
+    let complaints =
+        JSON.parse(localStorage.getItem("complaints")) || [];
+
+    let complaint =
+        complaints.find(function(item) {
+
+            return item.id.toUpperCase() === searchId;
+
+        });
+
+
+    let result =
+        document.getElementById("result");
+
+
+    if (complaint) {
+
+        result.innerHTML =
+
+            "<div class='complaint-card'>" +
+
+            "<h3>Complaint Found</h3>" +
+
+            "<p><strong>Complaint ID:</strong> " +
+            complaint.id +
+            "</p>" +
+
+            "<p><strong>Class:</strong> " +
+            complaint.class +
+            "</p>" +
+
+            "<p><strong>Category:</strong> " +
+            complaint.category +
+            "</p>" +
+
+            "<p><strong>Complaint:</strong> " +
+            complaint.complaint +
+            "</p>" +
+
+            "<p><strong>Status:</strong> " +
+            complaint.status +
+            "</p>" +
+
+            "</div>";
+
+    } else {
+
+        result.innerHTML =
+            "<p>❌ Complaint not found.</p>";
+
+    }
+
+});
+
+</script>
+
+</body>
+
+</html>

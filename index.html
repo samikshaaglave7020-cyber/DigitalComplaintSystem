@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Digital Complaint Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+        <h2>Complaint Management System</h2>
+
+        <div>
+            <a href="index.html">Home</a>
+            <a href="submit.html">Submit Complaint</a>
+            <a href="complaints.html">View Complaints</a>
+        </div>
+    </nav>
+
+
+    <section class="hero">
+
+        <h1>Digital Complaint Management System</h1>
+
+        <p>
+            Submit your complaint and check its status easily.
+        </p>
+
+        <div class="buttons">
+
+            <a href="submit.html" class="btn">
+                Submit Complaint
+            </a>
+
+            <a href="complaints.html" class="btn">
+                View Complaints
+            </a>
+
+        </div>
+
+    </section>
+
+<section class="dashboard">
+
+    <h2>Complaint Dashboard</h2>
+
+    <div class="dashboard-cards">
+
+        <div class="dashboard-card">
+            <h3>Total Complaints</h3>
+            <p id="totalComplaints">0</p>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>Pending</h3>
+            <p id="pendingComplaints">0</p>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>In Progress</h3>
+            <p id="progressComplaints">0</p>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>Resolved</h3>
+            <p id="resolvedComplaints">0</p>
+        </div>
+
+    </div>
+
+</section>
+
+    <section class="features">
+
+        <div class="card">
+            <h3>📝 Submit Complaint</h3>
+            <p>
+                Submit your complaint quickly and easily.
+            </p>
+        </div>
+
+
+        <div class="card">
+            <h3>🆔 Complaint ID</h3>
+            <p>
+                Get a unique ID for every complaint.
+            </p>
+        </div>
+
+
+        <div class="card">
+            <h3>📊 Check Status</h3>
+            <p>
+                Check whether your complaint is pending,
+                in progress or resolved.
+            </p>
+        </div>
+
+    </section>
+
+
+    <footer>
+
+        <p>
+            Digital Complaint Management System
+        </p>
+
+    </footer>
+    
+    <script>
+
+function updateDashboard() {
+
+    let complaints =
+        JSON.parse(localStorage.getItem("complaints")) || [];
+
+    let total = complaints.length;
+
+    let pending = complaints.filter(function(complaint) {
+        return complaint.status === "Pending";
+    }).length;
+
+    let progress = complaints.filter(function(complaint) {
+        return complaint.status === "In Progress";
+    }).length;
+
+    let resolved = complaints.filter(function(complaint) {
+        return complaint.status === "Resolved";
+    }).length;
+
+
+    document.getElementById("totalComplaints").innerText = total;
+
+    document.getElementById("pendingComplaints").innerText = pending;
+
+    document.getElementById("progressComplaints").innerText = progress;
+
+    document.getElementById("resolvedComplaints").innerText = resolved;
+
+}
+
+updateDashboard();
+
+</script>
+
+</body>
+
+</html>

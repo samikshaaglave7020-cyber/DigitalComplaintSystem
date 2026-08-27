@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Complaint</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav>
+    <h2>Complaint Management System</h2>
+
+    <div>
+        <a href="index.html">Home</a>
+        <a href="submit.html">Submit Complaint</a>
+        <a href="complaints.html">View Complaints</a>
+    </div>
+</nav>
+
+<section class="form-container">
+
+    <h1>Submit Complaint</h1>
+
+    <form id="complaintForm">
+
+        <label>Class</label>
+
+        <select id="class" required>
+            <option value="">Select Class</option>
+            <option value="FY IT">FY IT</option>
+            <option value="SY IT">SY IT</option>
+            <option value="TY IT">TY IT</option>
+            <option value="BE IT">BE IT</option>
+        </select>
+
+        <label>Complaint Category</label>
+
+        <select id="category" required>
+            <option value="">Select Category</option>
+            <option value="Academic">Academic</option>
+            <option value="Infrastructure">Infrastructure</option>
+            <option value="Faculty">Faculty</option>
+            <option value="Laboratory">Laboratory</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label>Complaint</label>
+
+        <textarea id="complaint"
+                  rows="6"
+                  placeholder="Enter your complaint"
+                  required></textarea>
+
+        <button type="submit" class="btn">
+            Submit Complaint
+        </button>
+
+    </form>
+
+    <div id="successMessage"></div>
+
+</section>
+
+
+<script>
+
+document.getElementById("complaintForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const studentClass = document.getElementById("class").value;
+    const category = document.getElementById("category").value;
+    const complaint = document.getElementById("complaint").value;
+
+    
+    let complaintNumber =
+    parseInt(localStorage.getItem("complaintNumber")) || 0;
+
+complaintNumber++;
+
+localStorage.setItem("complaintNumber", complaintNumber);
+
+const complaintId =
+    "CMP" + String(complaintNumber).padStart(3, "0");
+
+    const complaintData = {
+        id: complaintId,
+        class: studentClass,
+        category: category,
+        complaint: complaint,
+        status: "Pending"
+    };
+
+    let complaints =
+        JSON.parse(localStorage.getItem("complaints")) || [];
+
+    complaints.push(complaintData);
+
+    localStorage.setItem(
+        "complaints",
+        JSON.stringify(complaints)
+    );
+
+    document.getElementById("successMessage").innerHTML =
+        "<h3>Complaint Submitted Successfully!</h3>" +
+        "<p>Complaint ID:</p>" +
+        "<strong>" + complaintId + "</strong>";
+
+    document.getElementById("complaintForm").reset();
+
+});
+
+</script>
+
+</body>
+</html>
